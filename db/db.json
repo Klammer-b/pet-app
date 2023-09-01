@@ -1,0 +1,49 @@
+{
+  "animals": [
+    {
+      "name": "Barsik",
+      "age": 5,
+      "isVaccinated": false,
+      "species": "cat",
+      "id": "aPu3QcAMb8VwjZjwRLE0r",
+      "createdAt": "2023-08-31T17:35:16.877Z",
+      "updatedAt": "2023-08-31T17:35:16.877Z"
+    },
+    {
+      "name": "Barsik",
+      "age": 5,
+      "isVaccinated": false,
+      "species": "cat",
+      "id": "96kogxT3jxvEJKNV4Az0X",
+      "createdAt": "2023-08-31T18:09:40.428Z",
+      "updatedAt": "2023-08-31T18:09:40.428Z"
+    },
+    {
+      "name": "Barsik",
+      "age": 5,
+      "isVaccinated": false,
+      "species": "cat",
+      "id": "TdHl7_r8fZLFwFvTsjzdz",
+      "createdAt": "2023-08-31T18:20:52.485Z",
+      "updatedAt": "2023-08-31T18:20:52.485Z"
+    },
+    {
+      "name": "Barsik",
+      "age": 5,
+      "isVaccinated": false,
+      "species": "cat",
+      "id": "6B85uSam6Wy1ptrWxr3_z",
+      "createdAt": "2023-08-31T18:21:02.226Z",
+      "updatedAt": "2023-08-31T18:21:02.226Z"
+    },
+    {
+      "name": "Barsik",
+      "age": 5,
+      "isVaccinated": false,
+      "species": "cat",
+      "id": "dMARS1nNWN6RDrkcoPLp0",
+      "createdAt": "2023-08-31T18:27:16.634Z",
+      "updatedAt": "2023-08-31T18:27:16.634Z"
+    }
+  ]
+}
