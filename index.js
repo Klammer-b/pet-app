@@ -1,8 +1,5 @@
 const { Command } = require('commander');
-const { nanoid } = require('nanoid');
 const path = require('path');
-const readJSONFromFile = require('./utils/readJSONFromFile');
-const writeJSONToFile = require('./utils/writeJSONToFile');
 const animalsRepository = require('./db/animals');
 const program = new Command();
 
