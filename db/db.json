@@ -28,22 +28,34 @@
       "updatedAt": "2023-08-31T18:20:52.485Z"
     },
     {
-      "name": "Barsik",
+      "name": "Murchik",
       "age": 5,
       "isVaccinated": false,
       "species": "cat",
       "id": "6B85uSam6Wy1ptrWxr3_z",
       "createdAt": "2023-08-31T18:21:02.226Z",
-      "updatedAt": "2023-08-31T18:21:02.226Z"
+      "updatedAt": "2023-09-03T07:36:20.594Z"
     },
     {
-      "name": "Barsik",
+      "name": "Murchik",
       "age": 5,
       "isVaccinated": false,
       "species": "cat",
       "id": "dMARS1nNWN6RDrkcoPLp0",
       "createdAt": "2023-08-31T18:27:16.634Z",
-      "updatedAt": "2023-08-31T18:27:16.634Z"
+      "updatedAt": "2023-09-03T08:27:54.907Z"
+    },
+    {
+      "name": "Vasya",
+      "id": "S77vwMrZOT0fcGJPmqbFX",
+      "createdAt": "2023-09-03T08:29:15.122Z",
+      "updatedAt": "2023-09-03T08:29:15.122Z"
+    },
+    {
+      "name": "Vasya",
+      "id": "pbJ3qr2FGSz4i7J3LM3Pu",
+      "createdAt": "2023-09-03T08:40:20.000Z",
+      "updatedAt": "2023-09-03T08:40:20.000Z"
     }
   ]
 }
