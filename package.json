@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "commander": "^11.0.0",
     "nanoid": "3.3.4"
   }

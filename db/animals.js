@@ -27,11 +27,40 @@ const find = async () => {
 const findOneById = async (id) => {
   const animals = await find();
   const animal = animals.find((animal) => animal.id === id);
+
+  if (!animal) {
+    throw new Error(`Animal with id ${id} not found`);
+  }
+
   return animal;
+};
+
+const update = async (id, payload) => {
+  const content = await readJSONFromFile(DB_PATH);
+  const animal = await findOneById(id);
+
+  if (!animal) {
+    throw new Error(`Animal with id ${id} not found`);
+  }
+
+  const updatedAnimal = {
+    ...animal,
+    ...payload,
+    updatedAt: new Date().toISOString(),
+  };
+
+  const idx = content.animals.indexOf(
+    content.animals.find((animal) => animal.id === id),
+  );
+  content.animals[idx] = updatedAnimal;
+  await writeJSONToFile(DB_PATH, content);
+
+  return updatedAnimal;
 };
 
 module.exports = {
   create,
   find,
   findOneById,
+  update,
 };

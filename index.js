@@ -1,12 +1,8 @@
 const { Command } = require('commander');
-const { nanoid } = require('nanoid');
 const path = require('path');
-const readJSONFromFile = require('./utils/readJSONFromFile');
-const writeJSONToFile = require('./utils/writeJSONToFile');
+require('colors');
 const animalsRepository = require('./db/animals');
 const program = new Command();
-
-const DB_PATH = path.join(__dirname, 'db.json');
 
 program
   .name('pet-app')
@@ -19,13 +15,16 @@ program
   .description('Returns one animal by id or all animals')
   .option('--id <string>', 'id of an animal we want to get')
   .action(async ({ id }) => {
-    if (id) {
-      const animal = await animalsRepository.findOneById(id);
-      console.log(`Successfully found an animal with id ${id}`, animal);
-    } else {
-      const animals = await animalsRepository.find();
-
-      console.log(`Successfully found animals`, animals);
+    try {
+      if (id) {
+        const animal = await animalsRepository.findOneById(id);
+        console.log(`Successfully found an animal with id ${id}`.green, animal);
+      } else {
+        const animals = await animalsRepository.find();
+        console.log(`Successfully found animals`.green, animals);
+      }
+    } catch (err) {
+      console.error('Failed to get animals'.red + err.toString().red);
     }
   });
 
@@ -34,13 +33,31 @@ program
   .command('add-animal')
   .description('Adds one animal to pet shelter')
   .argument('<string>', 'JSON with pet data')
-  .action(async (str, options) => {
-    const input = JSON.parse(str);
-    const animal = await animalsRepository.create(input);
-
-    console.log('Successfully added an animal', animal);
+  .action(async (payload) => {
+    try {
+      const input = JSON.parse(payload);
+      const animal = await animalsRepository.create(input);
+      console.log('Successfully added an animal'.green, animal);
+    } catch (err) {
+      console.error('Failed to add an animal'.red, err.toString().red);
+    }
   });
 
 // update-animal
+program
+  .command('update-animal')
+  .argument('<payload>', 'payload in JSON format')
+  .requiredOption('-id, --id <id>, id of the animal')
+  .action(async (payload, { id }) => {
+    try {
+      const animal = await animalsRepository.update(id, JSON.parse(payload));
+      console.log(
+        `Successfully updated an animal with id ${id}!`.green,
+        animal,
+      );
+    } catch (err) {
+      console.error('Failed to update an animal:'.red, err.toString().red);
+    }
+  });
 
 program.parse(process.argv);
