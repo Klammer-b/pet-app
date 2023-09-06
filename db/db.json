@@ -2,12 +2,12 @@
   "animals": [
     {
       "name": "Barsik",
-      "age": 5,
-      "isVaccinated": false,
+      "age": 6,
+      "isVaccinated": true,
       "species": "cat",
       "id": "aPu3QcAMb8VwjZjwRLE0r",
       "createdAt": "2023-08-31T17:35:16.877Z",
-      "updatedAt": "2023-08-31T17:35:16.877Z"
+      "updatedAt": "2023-09-04T18:08:56.138Z"
     },
     {
       "name": "Barsik",
@@ -56,6 +56,26 @@
       "id": "pbJ3qr2FGSz4i7J3LM3Pu",
       "createdAt": "2023-09-03T08:40:20.000Z",
       "updatedAt": "2023-09-03T08:40:20.000Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "pX9F91dMg6VRyrS76Ombk",
+      "createdAt": "2023-09-04T17:52:00.148Z",
+      "updatedAt": "2023-09-04T17:52:00.148Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "eVH5Nqz4lttSYwca_TX9g",
+      "createdAt": "2023-09-04T18:00:11.347Z",
+      "updatedAt": "2023-09-04T18:00:11.347Z"
     }
   ]
 }
