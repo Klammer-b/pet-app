@@ -3,6 +3,8 @@ const path = require('path');
 
 const readJSONFromFile = require('../utils/readJSONFromFile');
 const writeJSONToFile = require('../utils/writeJSONToFile');
+const createError = require('../utils/createError');
+const ERROR_TYPES = require('../constants/errors');
 
 const DB_PATH = path.join(__dirname, 'db.json');
 
@@ -29,7 +31,11 @@ const findOneById = async (id) => {
   const animal = animals.find((animal) => animal.id === id);
 
   if (!animal) {
-    throw new Error(`Animal with id ${id} not found`);
+    const error = createError(ERROR_TYPES.NOT_FOUND, {
+      message: `Animal with id ${id} not found`,
+      data: {},
+    });
+    throw error;
   }
 
   return animal;
@@ -40,7 +46,11 @@ const update = async (id, payload) => {
   const animal = await findOneById(id);
 
   if (!animal) {
-    throw new Error(`Animal with id ${id} not found`);
+    const error = createError(ERROR_TYPES.NOT_FOUND, {
+      message: `Animal with id ${id} not found`,
+      data: {},
+    });
+    throw error;
   }
 
   const updatedAnimal = {

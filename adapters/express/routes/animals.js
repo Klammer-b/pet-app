@@ -1,37 +1,59 @@
 const { Router } = require('express');
-const animalRepository = require('../../../db/animals');
+const animalService = require('../../../services/animals');
+const validateBody = require('../middlewares/validateBody');
+const createAnimalBodySchema = require('../../../schemas/animals/createAnimal');
 
 const routes = new Router();
 
 routes.get('/:animalId', async (req, res, next) => {
   const { animalId } = req.params;
-  const animal = await animalRepository.findOneById(animalId);
-  res.status(200).json({
-    data: animal,
-  });
+  try {
+    const animal = await animalService.findOneById(animalId);
+    res.status(200).json({
+      data: animal,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 routes.put('/:animalId', async (req, res, next) => {
   const { animalId } = req.params;
   const { body } = req;
-  const animal = await animalRepository.update(animalId, body);
-  res.status(200).json({
-    data: animal,
-  });
+  try {
+    const animal = await animalService.update(animalId, body);
+    res.status(200).json({
+      data: animal,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 routes.get('/', async (req, res, next) => {
-  const animals = await animalRepository.find();
-  res.status(200).json({
-    data: animals,
-  });
+  try {
+    const animals = await animalService.find();
+    res.status(200).json({
+      data: animals,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
-routes.post('/', async (req, res, next) => {
-  const animal = await animalRepository.create(req.body);
-  res.status(201).json({
-    data: animal,
-  });
-});
+routes.post(
+  '/',
+  [validateBody(createAnimalBodySchema)],
+  async (req, res, next) => {
+    try {
+      const animal = await animalService.create(req.body);
+      res.status(201).json({
+        data: animal,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 module.exports = routes;

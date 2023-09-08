@@ -76,6 +76,46 @@
       "id": "eVH5Nqz4lttSYwca_TX9g",
       "createdAt": "2023-09-04T18:00:11.347Z",
       "updatedAt": "2023-09-04T18:00:11.347Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "gyewrygu",
+      "isVaccinated": null,
+      "species": "dog",
+      "id": "MmwjxCjlwXuN4PmoDhfJX",
+      "createdAt": "2023-09-07T18:10:08.345Z",
+      "updatedAt": "2023-09-07T18:10:08.345Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "n4sphzaQ7plg6LOJq7Qos",
+      "createdAt": "2023-09-07T18:13:02.192Z",
+      "updatedAt": "2023-09-07T18:13:02.192Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "zsQpb4fl2vjb2R14VqXgE",
+      "createdAt": "2023-09-08T08:32:38.332Z",
+      "updatedAt": "2023-09-08T08:32:38.332Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "VQscZdj0z70kAmZ7GwE96",
+      "createdAt": "2023-09-08T08:52:30.921Z",
+      "updatedAt": "2023-09-08T08:52:30.921Z"
     }
   ]
 }

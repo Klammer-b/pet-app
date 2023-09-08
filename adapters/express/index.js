@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const router = require('./routes');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use('/api/v1', router);
 app.get('/', (req, res, next) => {
   res.send('hello world');
 });
+
+app.use(errorHandler);
 
 const PORT = 4000;
 
