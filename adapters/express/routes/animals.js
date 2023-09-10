@@ -41,6 +41,23 @@ routes.put(
   },
 );
 
+routes.delete(
+  '/:animalId',
+  [validateParams(animalIdParamsSchema)],
+  async (req, res, next) => {
+    const { animalId } = req.params;
+
+    try {
+      const animal = await animalService.deleteSoft(animalId);
+      res.status(200).json({
+        data: animal,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
 routes.get('/', async (req, res, next) => {
   try {
     const animals = await animalService.find();

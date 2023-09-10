@@ -24,9 +24,16 @@ const update = async (id, payload) => {
   return animal;
 };
 
+const deleteSoft = async (id) => {
+  const animal = await animalRepository.deleteSoft(id);
+
+  return animal;
+};
+
 module.exports = {
   create,
   find,
   findOneById,
   update,
+  deleteSoft,
 };

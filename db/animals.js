@@ -23,14 +23,15 @@ const create = async (data) => {
 
 const find = async () => {
   const { animals } = await readJSONFromFile(DB_PATH);
-  return animals;
+
+  return animals.filter((animal) => !animal.deletedAt);
 };
 
 const findOneById = async (id) => {
   const animals = await find();
   const animal = animals.find((animal) => animal.id === id);
 
-  if (!animal) {
+  if (!animal || animal.deletedAt) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: `Animal with id ${id} not found`,
       data: {},
@@ -45,7 +46,7 @@ const update = async (id, payload) => {
   const content = await readJSONFromFile(DB_PATH);
   const animal = await findOneById(id);
 
-  if (!animal) {
+  if (!animal || animal.deletedAt) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: `Animal with id ${id} not found`,
       data: {},
@@ -68,9 +69,14 @@ const update = async (id, payload) => {
   return updatedAnimal;
 };
 
+const deleteSoft = async (id) => {
+  return update(id, { deletedAt: new Date().toISOString() });
+};
+
 module.exports = {
   create,
   find,
   findOneById,
   update,
+  deleteSoft,
 };
