@@ -109,13 +109,13 @@
     },
     {
       "name": "Druzhok",
-      "age": 3,
+      "age": 5,
       "gender": "male",
       "isVaccinated": true,
       "species": "dog",
       "id": "VQscZdj0z70kAmZ7GwE96",
       "createdAt": "2023-09-08T08:52:30.921Z",
-      "updatedAt": "2023-09-08T08:52:30.921Z"
+      "updatedAt": "2023-09-10T09:35:53.210Z"
     }
   ]
 }

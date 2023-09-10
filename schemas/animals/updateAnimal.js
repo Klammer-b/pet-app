@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const createAnimalBodySchema = Joi.object({
+const updateAnimalBodySchema = Joi.object({
   name: Joi.string().alphanum().min(2).max(30),
   age: Joi.number().min(1).strict(),
   isVaccinated: Joi.bool(),
@@ -8,4 +8,4 @@ const createAnimalBodySchema = Joi.object({
   gender: Joi.string().valid(...['male', 'female']),
 });
 
-module.exports = createAnimalBodySchema;
+module.exports = updateAnimalBodySchema;
