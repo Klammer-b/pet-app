@@ -2,12 +2,12 @@
   "animals": [
     {
       "name": "Barsik",
-      "age": 5,
-      "isVaccinated": false,
+      "age": 6,
+      "isVaccinated": true,
       "species": "cat",
       "id": "aPu3QcAMb8VwjZjwRLE0r",
       "createdAt": "2023-08-31T17:35:16.877Z",
-      "updatedAt": "2023-08-31T17:35:16.877Z"
+      "updatedAt": "2023-09-04T18:08:56.138Z"
     },
     {
       "name": "Barsik",
@@ -56,6 +56,67 @@
       "id": "pbJ3qr2FGSz4i7J3LM3Pu",
       "createdAt": "2023-09-03T08:40:20.000Z",
       "updatedAt": "2023-09-03T08:40:20.000Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "pX9F91dMg6VRyrS76Ombk",
+      "createdAt": "2023-09-04T17:52:00.148Z",
+      "updatedAt": "2023-09-04T17:52:00.148Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "eVH5Nqz4lttSYwca_TX9g",
+      "createdAt": "2023-09-04T18:00:11.347Z",
+      "updatedAt": "2023-09-04T18:00:11.347Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "gyewrygu",
+      "isVaccinated": null,
+      "species": "dog",
+      "id": "MmwjxCjlwXuN4PmoDhfJX",
+      "createdAt": "2023-09-07T18:10:08.345Z",
+      "updatedAt": "2023-09-07T18:10:08.345Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "n4sphzaQ7plg6LOJq7Qos",
+      "createdAt": "2023-09-07T18:13:02.192Z",
+      "updatedAt": "2023-09-07T18:13:02.192Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 3,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "zsQpb4fl2vjb2R14VqXgE",
+      "createdAt": "2023-09-08T08:32:38.332Z",
+      "updatedAt": "2023-09-08T08:32:38.332Z"
+    },
+    {
+      "name": "Druzhok",
+      "age": 5,
+      "gender": "male",
+      "isVaccinated": true,
+      "species": "dog",
+      "id": "VQscZdj0z70kAmZ7GwE96",
+      "createdAt": "2023-09-08T08:52:30.921Z",
+      "updatedAt": "2023-09-10T09:47:14.524Z",
+      "deletedAt": "2023-09-10T09:47:14.522Z"
     }
   ]
 }
