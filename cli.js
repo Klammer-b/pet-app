@@ -2,5 +2,5 @@ const setupMongoConnection = require('./utils/setupMongoConnection');
 
 (async () => {
   await setupMongoConnection();
-  require('./adapters');
+  require('./adapters/cli');
 })();
