@@ -6,8 +6,8 @@ const create = async (data) => {
   return animal;
 };
 
-const find = async () => {
-  const animals = await animalRepository.find();
+const find = async (config) => {
+  const animals = await animalRepository.find(config);
 
   return animals;
 };
