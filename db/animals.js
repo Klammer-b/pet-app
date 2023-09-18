@@ -1,37 +1,44 @@
-const { nanoid } = require('nanoid');
 const path = require('path');
-
-const readJSONFromFile = require('../utils/readJSONFromFile');
-const writeJSONToFile = require('../utils/writeJSONToFile');
 const createError = require('../utils/createError');
 const ERROR_TYPES = require('../constants/errors');
-
-const DB_PATH = path.join(__dirname, 'db.json');
+const AnimalModel = require('./models/animal');
 
 const create = async (data) => {
-  const animal = {
-    ...data,
-    id: nanoid(),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  const db = await readJSONFromFile(DB_PATH);
-  db.animals.push(animal);
-  await writeJSONToFile(DB_PATH, db);
+  const animal = new AnimalModel(data);
+  await animal.save();
+
   return animal;
 };
 
-const find = async () => {
-  const { animals } = await readJSONFromFile(DB_PATH);
+const find = async ({ page, limit, minAge, isVaccinated }) => {
+  const skip = (page - 1) * limit;
 
-  return animals.filter((animal) => !animal.deletedAt);
+  const animalsQuery = AnimalModel.find({ deletedAt: null })
+    .skip(skip)
+    .limit(limit);
+  const countQuery = AnimalModel.count().where('deletedAt').equals(null);
+
+  if (minAge) {
+    animalsQuery.where('age').gte(+minAge);
+    countQuery.where('age').gte(+minAge);
+  }
+
+  if (isVaccinated) {
+    const isVaccinatedToBoolean = Boolean(+isVaccinated);
+    animalsQuery.where('isVaccinated').equals(isVaccinatedToBoolean);
+    countQuery.where('isVaccinated').gte(isVaccinatedToBoolean);
+  }
+
+  const animals = await animalsQuery.exec();
+  const count = await countQuery.exec();
+
+  return { animals, count, page, limit };
 };
 
 const findOneById = async (id) => {
-  const animals = await find();
-  const animal = animals.find((animal) => animal.id === id);
+  const animal = await AnimalModel.findById(id).where('deletedAt').equals(null);
 
-  if (!animal || animal.deletedAt) {
+  if (!animal) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: `Animal with id ${id} not found`,
       data: {},
@@ -43,10 +50,19 @@ const findOneById = async (id) => {
 };
 
 const update = async (id, payload) => {
-  const content = await readJSONFromFile(DB_PATH);
-  const animal = await findOneById(id);
+  const updatedAnimal = await AnimalModel.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        ...payload,
+      },
+    },
+    { returnOriginal: false },
+  )
+    .where('deletedAt')
+    .equals(null);
 
-  if (!animal || animal.deletedAt) {
+  if (!updatedAnimal) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: `Animal with id ${id} not found`,
       data: {},
@@ -54,23 +70,21 @@ const update = async (id, payload) => {
     throw error;
   }
 
-  const updatedAnimal = {
-    ...animal,
-    ...payload,
-    updatedAt: new Date().toISOString(),
-  };
-
-  const idx = content.animals.indexOf(
-    content.animals.find((animal) => animal.id === id),
-  );
-  content.animals[idx] = updatedAnimal;
-  await writeJSONToFile(DB_PATH, content);
-
   return updatedAnimal;
 };
 
 const deleteSoft = async (id) => {
-  return update(id, { deletedAt: new Date().toISOString() });
+  const deletedAnimal = await AnimalModel.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        deletedAt: new Date().toISOString(),
+      },
+    },
+    { returnOriginal: false },
+  );
+
+  return deletedAnimal;
 };
 
 module.exports = {

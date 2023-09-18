@@ -1,10 +1,14 @@
 const { Router } = require('express');
+const Joi = require('joi');
 const animalService = require('../../../services/animals');
 const validateBody = require('../middlewares/validateBody');
 const validateParams = require('../middlewares/validateParams');
+const validateQuery = require('../middlewares/validateQuery');
 const createAnimalBodySchema = require('../../../schemas/animals/createAnimal');
 const animalIdParamsSchema = require('../../../schemas/animals/animalIdParams');
 const updateAnimalBodySchema = require('../../../schemas/animals/updateAnimal');
+const paginationSchema = require('../../../schemas/common/pagination');
+const animalFilterQueryParams = require('../../../schemas/animals/animalFilterQueryParams');
 
 const routes = new Router();
 
@@ -58,16 +62,29 @@ routes.delete(
   },
 );
 
-routes.get('/', async (req, res, next) => {
-  try {
-    const animals = await animalService.find();
-    res.status(200).json({
-      data: animals,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+routes.get(
+  '/',
+  [
+    validateQuery(
+      Joi.object({ ...paginationSchema, ...animalFilterQueryParams }),
+    ),
+  ],
+  async (req, res, next) => {
+    try {
+      const { page = 1, limit = 1, ...rest } = req.query;
+      const animals = await animalService.find({
+        page: +page,
+        limit: +limit,
+        ...rest,
+      });
+      res.status(200).json({
+        data: animals,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 routes.post(
   '/',
