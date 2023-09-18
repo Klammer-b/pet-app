@@ -1,6 +1,6 @@
-const setupMongoConnection = require('./utils/setupMongoConnection');
+const setupMongoConnection = require('./src/utils/setupMongoConnection');
 
 (async () => {
   await setupMongoConnection();
-  require('./adapters');
+  require('./src/adapters');
 })();
