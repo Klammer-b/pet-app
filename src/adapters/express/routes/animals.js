@@ -9,6 +9,8 @@ const animalIdParamsSchema = require('../../../schemas/animals/animalIdParams');
 const updateAnimalBodySchema = require('../../../schemas/animals/updateAnimal');
 const paginationSchema = require('../../../schemas/common/pagination');
 const animalFilterQueryParams = require('../../../schemas/animals/animalFilterQueryParams');
+const createError = require('../../../utils/createError');
+const ERROR_TYPES = require('../../../constants/errors');
 
 const routes = new Router();
 
@@ -86,9 +88,22 @@ routes.get(
   },
 );
 
+const auth = (req, res, next) => {
+  const headers = req.headers;
+
+  if (headers.authorization && headers.authorization.includes('Bearer')) {
+    next();
+  } else {
+    const error = createError(ERROR_TYPES.UNAUTHORIZED, {
+      message: 'You should provide bearer token',
+    });
+    next(error);
+  }
+};
+
 routes.post(
   '/',
-  [validateBody(createAnimalBodySchema)],
+  [auth, validateBody(createAnimalBodySchema)],
   async (req, res, next) => {
     try {
       const animal = await animalService.create(req.body);
