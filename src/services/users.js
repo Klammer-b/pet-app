@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const userRepository = require('../db/users');
 const createError = require('../utils/createError');
 const ERROR_TYPES = require('../constants/errors');
-
-const JWT_SECRET = 'super secret';
+const { JWT_SECRET } = require('../constants/env');
+const UserModel = require('../db/models/user');
 
 const register = async (data) => {
   const passwordHash = await bcrypt.hash(data.password, 10);
@@ -44,4 +44,14 @@ const login = async ({ email, password }) => {
   return { ...serializedUser, token };
 };
 
-module.exports = { register, login };
+const findById = async (id) => {
+  const user = await userRepository.findById(id);
+
+  return user;
+};
+
+const promoteToAdmin = async (id) => {
+  await userRepository.updateById(id, { $set: { role: 'admin' } });
+};
+
+module.exports = { register, login, findById, promoteToAdmin };

@@ -9,8 +9,8 @@ const animalIdParamsSchema = require('../../../schemas/animals/animalIdParams');
 const updateAnimalBodySchema = require('../../../schemas/animals/updateAnimal');
 const paginationSchema = require('../../../schemas/common/pagination');
 const animalFilterQueryParams = require('../../../schemas/animals/animalFilterQueryParams');
-const createError = require('../../../utils/createError');
-const ERROR_TYPES = require('../../../constants/errors');
+const auth = require('../middlewares/auth');
+const checkRoles = require('../middlewares/checkRoles');
 
 const routes = new Router();
 
@@ -32,7 +32,12 @@ routes.get(
 
 routes.put(
   '/:animalId',
-  [validateParams(animalIdParamsSchema), validateBody(updateAnimalBodySchema)],
+  [
+    auth,
+    checkRoles(['admin']),
+    validateParams(animalIdParamsSchema),
+    validateBody(updateAnimalBodySchema),
+  ],
   async (req, res, next) => {
     const { animalId } = req.params;
     const { body } = req;
@@ -49,7 +54,7 @@ routes.put(
 
 routes.delete(
   '/:animalId',
-  [validateParams(animalIdParamsSchema)],
+  [auth, checkRoles(['admin']), validateParams(animalIdParamsSchema)],
   async (req, res, next) => {
     const { animalId } = req.params;
 
@@ -88,22 +93,9 @@ routes.get(
   },
 );
 
-const auth = (req, res, next) => {
-  const headers = req.headers;
-
-  if (headers.authorization && headers.authorization.includes('Bearer')) {
-    next();
-  } else {
-    const error = createError(ERROR_TYPES.UNAUTHORIZED, {
-      message: 'You should provide bearer token',
-    });
-    next(error);
-  }
-};
-
 routes.post(
   '/',
-  [auth, validateBody(createAnimalBodySchema)],
+  [auth, checkRoles(['admin', 'guest']), validateBody(createAnimalBodySchema)],
   async (req, res, next) => {
     try {
       const animal = await animalService.create(req.body);
