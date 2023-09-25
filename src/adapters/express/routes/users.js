@@ -1,0 +1,67 @@
+const { Router } = require('express');
+const usersService = require('../../../services/users');
+const checkRoles = require('../middlewares/checkRoles');
+const auth = require('../middlewares/auth');
+
+const routes = new Router();
+
+routes.post('/register', async (req, res, next) => {
+  const { body } = req;
+  try {
+    const user = await usersService.register(body);
+
+    if (user) {
+      res.cookie('jwt', user.token, { secure: true });
+
+      return res.json({
+        message: 'User created successfully!',
+        data: user,
+      });
+    }
+
+    return res.status(400).json({ message: 'User created failed!' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+routes.post('/login', async (req, res, next) => {
+  const { body } = req;
+  try {
+    const user = await usersService.login(body);
+
+    res.cookie('jwt', user.token, { secure: true });
+    return res.json({ data: user, message: 'Successfully logged in a user!' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+routes.post('/logout', async (req, res, next) => {
+  const { body } = req;
+  try {
+    res.clearCookie('jwt');
+    return res.json({ data: user, message: 'Successfully logged out a user!' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+routes.post(
+  '/:userId/promote-to-admin',
+  [auth, checkRoles(['admin'])],
+  async (req, res, next) => {
+    const { userId } = req.params;
+
+    try {
+      await usersService.promoteToAdmin(userId);
+      return res.json({
+        message: `Successfully promoted to admin user with id ${userId}`,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
+module.exports = routes;

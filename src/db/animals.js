@@ -26,7 +26,7 @@ const find = async ({ page, limit, minAge, isVaccinated }) => {
   if (isVaccinated) {
     const isVaccinatedToBoolean = Boolean(+isVaccinated);
     animalsQuery.where('isVaccinated').equals(isVaccinatedToBoolean);
-    countQuery.where('isVaccinated').gte(isVaccinatedToBoolean);
+    countQuery.where('isVaccinated').equals(isVaccinatedToBoolean);
   }
 
   const animals = await animalsQuery.exec();
