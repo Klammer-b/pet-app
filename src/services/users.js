@@ -1,14 +1,21 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const filesService = require('../services/files');
 const userRepository = require('../db/users');
 const createError = require('../utils/createError');
 const ERROR_TYPES = require('../constants/errors');
 const { JWT_SECRET } = require('../constants/env');
-const UserModel = require('../db/models/user');
 
-const register = async (data) => {
+const register = async ({ avatar, ...data }) => {
   const passwordHash = await bcrypt.hash(data.password, 10);
-  const user = await userRepository.create({ ...data, password: passwordHash });
+  const imagePath = await filesService.saveFile(avatar);
+
+  const user = await userRepository.create({
+    ...data,
+    password: passwordHash,
+    avatar: { url: imagePath, filename: data.name },
+  });
+
   return user;
 };
 

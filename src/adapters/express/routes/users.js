@@ -1,29 +1,40 @@
 const { Router } = require('express');
+const upload = require('../middlewares/multer');
 const usersService = require('../../../services/users');
 const checkRoles = require('../middlewares/checkRoles');
 const auth = require('../middlewares/auth');
+const getFileURL = require('../../../services/files');
+
+const fs = require('fs/promises');
+const { UPLOAD_DIR } = require('../../../constants/common');
+const { nanoid } = require('nanoid');
 
 const routes = new Router();
 
-routes.post('/register', async (req, res, next) => {
-  const { body } = req;
-  try {
-    const user = await usersService.register(body);
+routes.post(
+  '/register',
+  // upload.single('avatar'),
+  async (req, res, next) => {
+    const { body } = req;
 
-    if (user) {
-      res.cookie('jwt', user.token, { secure: true });
+    try {
+      const user = await usersService.register(body);
 
-      return res.json({
-        message: 'User created successfully!',
-        data: user,
-      });
+      if (user) {
+        res.cookie('jwt', user.token, { secure: true });
+
+        return res.json({
+          message: 'User created successfully!',
+          data: user,
+        });
+      }
+
+      return res.status(400).json({ message: 'User created failed!' });
+    } catch (err) {
+      next(err);
     }
-
-    return res.status(400).json({ message: 'User created failed!' });
-  } catch (err) {
-    next(err);
-  }
-});
+  },
+);
 
 routes.post('/login', async (req, res, next) => {
   const { body } = req;
