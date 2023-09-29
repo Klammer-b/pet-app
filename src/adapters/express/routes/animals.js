@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Joi = require('joi');
+const animalController = require('../controllers/animals');
 const animalService = require('../../../services/animals');
 const validateBody = require('../middlewares/validateBody');
 const validateParams = require('../middlewares/validateParams');
@@ -17,17 +18,7 @@ const routes = new Router();
 routes.get(
   '/:animalId',
   [validateParams(animalIdParamsSchema)],
-  async (req, res, next) => {
-    const { animalId } = req.params;
-    try {
-      const animal = await animalService.findOneById(animalId);
-      res.status(200).json({
-        data: animal,
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
+  animalController.getAnimal,
 );
 
 routes.put(
