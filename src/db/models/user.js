@@ -23,6 +23,7 @@ const userSchema = new Schema(
       required: true,
     },
     deletedAt: { type: Date, default: null },
+    avatar: { url: String, filename: String },
   },
   { timestamps: true, versionKey: false },
 );
