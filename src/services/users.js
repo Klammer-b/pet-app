@@ -5,6 +5,7 @@ const userRepository = require('../db/users');
 const createError = require('../utils/createError');
 const ERROR_TYPES = require('../constants/errors');
 const { JWT_SECRET } = require('../constants/env');
+const UserModel = require('../db/models/user');
 
 const register = async ({ avatar, ...data }) => {
   const passwordHash = await bcrypt.hash(data.password, 10);
@@ -57,8 +58,14 @@ const findById = async (id) => {
   return user;
 };
 
+const findByEmail = async (email) => {
+  const user = await UserModel.find({ email });
+
+  return user[0];
+};
+
 const promoteToAdmin = async (id) => {
   await userRepository.updateById(id, { $set: { role: 'admin' } });
 };
 
-module.exports = { register, login, findById, promoteToAdmin };
+module.exports = { register, login, findById, promoteToAdmin, findByEmail };

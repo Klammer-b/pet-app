@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const upload = require('../middlewares/multer');
 const usersService = require('../../../services/users');
+const emailsService = require('../../../services/emails');
 const checkRoles = require('../middlewares/checkRoles');
 const auth = require('../middlewares/auth');
 const getFileURL = require('../../../services/files');
@@ -74,5 +75,15 @@ routes.post(
     }
   },
 );
+
+routes.post('/request-token', async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    await emailsService.sendResetPasswordEmail(email);
+    res.json({ message: 'Reset link is sent tp your email!' });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = routes;
