@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "http:start": "node index.js",
+    "http:dev": "nodemon index.js",
+    "ws:start": "node ws.js",
+    "ws:dev": "nodemon ws.js",
     "test": "jest"
   },
   "keywords": [],
@@ -27,7 +29,8 @@
     "nanoid": "3.3.4",
     "nodemailer": "^6.9.5",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.1"
+    "passport-jwt": "^4.0.1",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@jest-mock/express": "^2.0.2",
