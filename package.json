@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "http:start": "node index.js",
+    "http:dev": "nodemon index.js",
+    "ws:start": "node ws.js",
+    "ws:dev": "nodemon ws.js",
     "test": "jest"
   },
   "keywords": [],
@@ -19,13 +21,16 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "handlebars": "^4.7.8",
     "joi": "^17.10.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.1",
     "multer": "^1.4.5-lts.1",
     "nanoid": "3.3.4",
+    "nodemailer": "^6.9.5",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.1"
+    "passport-jwt": "^4.0.1",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@jest-mock/express": "^2.0.2",

@@ -8,6 +8,8 @@ const {
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
   JWT_SECRET,
+  EMAIL_USERNAME,
+  EMAIL_PASSWORD,
 } = process.env;
 
 if (!MONGO_DB_USER) {
@@ -30,10 +32,20 @@ if (!JWT_SECRET) {
   throw new Error('Please setup JWT_SECRET variable');
 }
 
+if (!EMAIL_USERNAME) {
+  throw new Error('Please setup EMAIL_USERNAME variable');
+}
+
+if (!EMAIL_PASSWORD) {
+  throw new Error('Please setup EMAIL_PASSWORD variable');
+}
+
 module.exports = {
   MONGO_DB_USER,
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
   JWT_SECRET,
+  EMAIL_USERNAME,
+  EMAIL_PASSWORD,
 };
